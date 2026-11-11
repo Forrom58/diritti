@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.0.6 (11/11/2026).
+**Stato:** v1.0.7 (11/11/2026).
 
 ---
 
@@ -236,10 +236,10 @@ PWA accessibile e gratuita per scoprire le agevolazioni per persone con disabili
 ### v1.0.6 (11/11/2026) – nuova icona "E1 diritta"
 - Disegno: D grande e diritta (per Diritti e Disabilità), occhiello aperto, con una riga sottile scura a metà spessore che forma una seconda D interna (ispirazione: stile moderno tipo logo Formula 1, ma disegno originale). La D poggia sulla fascia con 2 px di stacco.
 - **Due soli colori**: scuro #2E2A4F (sfondo, scritta, riga interna) · chiaro #CFC9EA (fascia, D).
-- Scritta DIRITTI a **124 px** (eccezione allo standard di 132 px: a 132 tocca gli angoli; a 124 è larga 399 px, come PASTA). Base y=491, fascia da y=369.
+- Scritta DIRITTI a **124 px** (eccezione allo standard di 132 px: a 132 tocca gli angoli; a 124 è larga 399 px, come PASTA). Base **y=489** (alzata di 2 px in v1.0.7, su richiesta), fascia da y=369.
 - Maskable al 90% con margini: sopra scuro, sotto chiaro.
 - Scartate: D1 (D tagliata), D3 (sembra la lettera "Đ"), D4, E1 obliqua, E2, E3, E4.
-- Icone con `?v=1.0.6` in manifest.json e index.html per forzare l'aggiornamento. Su Android l'icona dell'app installata può metterci qualche giorno ad aggiornarsi (lo decide Chrome); per averla subito: disinstallare e reinstallare la PWA.
+- Icone con `?v=<versione>` in manifest.json e index.html per forzare l'aggiornamento. Su Android l'icona dell'app installata può metterci qualche giorno ad aggiornarsi (lo decide Chrome); per averla subito: disinstallare e reinstallare la PWA.
 
 SVG del disegno (512×512, prima della fascia):
 ```svg
@@ -250,3 +250,5 @@ SVG del disegno (512×512, prima della fascia):
 </g>
 ```
 
+### v1.0.7 (11/11/2026)
+- Scritta DIRITTI nell'icona alzata di 2 px (base y=489).
