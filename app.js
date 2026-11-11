@@ -1,21 +1,27 @@
 // Diritti – logica dell'app. Il profilo resta solo sul telefono (localStorage).
-const VERSIONE = 'v1.0.9';
+const VERSIONE = 'v1.1.0';
 const K_PROFILO = 'diritti_profilo';
 const K_AVVISO = 'diritti_avviso';   // { data: ISO, ver: n } – registro dell'accettazione
 const AVVISO_VER = 1;                // aumentarlo se cambia il testo dell'avviso: verrà richiesto di nuovo
 function avvisoAccettato() { const a = leggi(K_AVVISO); return a && a.ver === AVVISO_VER ? a : null; }
 
-const PROFILO_VUOTO = { tipo: [], cecita: 'no', sordo: false, deamb: false, inv: 0, l104: 'no', accomp: false, rara: false, isee: '', ruolo: 'disabile' };
+const PROFILO_VUOTO = { tipo: [], cecita: 'no', sordo: false, deamb: false, inv: 0, l104: 'no', accomp: false, rara: false, isee: '', ruolo: 'disabile',
+  reddito: '', comune: '', nonauto: '', dipendente: '', badante: '', salvavita: '' };
 
 function leggi(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
 function scrivi(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
 function profilo() { return leggi(K_PROFILO); }
-function esito(s) {
+// Restituisce { e: 'si' | 'forse' | 'no', perche: motivo se 'forse' }
+function valuta(s) {
   const p = profilo();
-  if (!p) return 'forse';
-  try { return s.spetta(Object.assign({}, PROFILO_VUOTO, p)); } catch (e) { return 'forse'; }
+  if (!p) return { e: 'forse', perche: 'Compila il profilo' };
+  try {
+    const r = s.spetta(Object.assign({}, PROFILO_VUOTO, p));
+    return typeof r === 'string' ? { e: r, perche: '' } : r;
+  } catch (e) { return { e: 'forse', perche: '' }; }
 }
+function esito(s) { return valuta(s).e; }
 const TESTO_ESITO = { si: 'Ti spetta', forse: 'Da valutare', no: 'Non ti spetta' };
 
 const $ = s => document.querySelector(s);
@@ -89,10 +95,11 @@ function ambito(id) {
 function scheda(cod) {
   const s = SCHEDE.find(x => x.codice === cod);
   if (!s) return home();
-  const e = esito(s);
+  const { e, perche } = valuta(s);
   mostra(`
     <h1>${esc(s.titolo)}</h1>
     <p>${etichetta(e)} ${s.verifica === 'dubbio' ? '<span class="etichetta et-verif">Da verificare</span>' : ''}</p>
+    ${e === 'forse' ? `<p class="perche"><strong>Perché:</strong> ${esc(perche || 'Mancano dati nel profilo per decidere')}.</p>` : ''}
     ${e === 'si' ? '' : `<h2>A chi spetta</h2><p>${esc(s.aChi)}</p>`}
     <h2>Cosa dà</h2><p>${esc(s.cosa)}</p>
     <h2>Come si chiede</h2><p>${esc(s.come)}</p>
@@ -104,6 +111,8 @@ function formProfilo() {
   const p = Object.assign({}, PROFILO_VUOTO, profilo() || {});
   const sel = (v, x) => v === x ? 'selected' : '';
   const chk = (v) => v ? 'checked' : '';
+  const scelta = (v, opz) => opz.map(([x, t]) => `<option value="${x}" ${v === x ? 'selected' : ''}>${t}</option>`).join('');
+  const SINO = [['', 'Non indicato'], ['si', 'Sì'], ['no', 'No']];
   const tipi = [['visiva', 'Visiva'], ['uditiva', 'Uditiva'], ['motoria', 'Motoria'], ['intellettiva', 'Intellettiva o psichica'], ['altra', 'Altra']];
   mostra(`
     <h1>Il tuo profilo</h1>
@@ -137,8 +146,16 @@ function formProfilo() {
         <label class="check"><input type="checkbox" id="accomp" ${chk(p.accomp)}> Indennità di accompagnamento</label>
         <label class="check"><input type="checkbox" id="rara" ${chk(p.rara)}> Esenzione per malattia rara</label>
       </fieldset>
+      <label for="comune">Comune di residenza</label>
+      <select id="comune">${scelta(p.comune, [['', 'Non indicato'], ['roma', 'Roma'], ['lazio', 'Altro comune del Lazio']])}</select>
       <label for="isee">ISEE in euro (lascia vuoto se non lo sai)</label>
       <input id="isee" type="number" min="0" inputmode="numeric" value="${p.isee}">
+      <label for="reddito">Reddito personale annuo in euro, dalla dichiarazione dei redditi (lascia vuoto se non vuoi indicarlo)</label>
+      <input id="reddito" type="number" min="0" inputmode="numeric" value="${p.reddito}">
+      <fieldset><legend>Altri dati (facoltativi)</legend>
+        ${[['nonauto', 'Non autosufficienza certificata'], ['dipendente', 'Lavoratore dipendente'], ['badante', 'Colf o badante con contratto'], ['salvavita', 'Apparecchi elettromedicali salvavita in casa']]
+          .map(([id, t]) => `<label for="${id}">${t}</label><select id="${id}">${scelta(p[id], SINO)}</select>`).join('')}
+      </fieldset>
       <div class="riga-azioni">
         <button type="submit" class="btn-piccolo btn-primario">Salva profilo</button>
         <button type="button" class="btn-piccolo" id="cancella">Cancella profilo</button>
@@ -161,7 +178,10 @@ function formProfilo() {
       cecita: $('#cecita').value, sordo: $('#sordo').checked, deamb: $('#deamb').checked,
       inv, l104: $('#l104').value,
       accomp: $('#accomp').checked, rara: $('#rara').checked,
-      isee: iseeV === '' ? '' : Number(iseeV)
+      isee: iseeV === '' ? '' : Number(iseeV),
+      reddito: $('#reddito').value.trim() === '' ? '' : Number($('#reddito').value),
+      comune: $('#comune').value, nonauto: $('#nonauto').value, dipendente: $('#dipendente').value,
+      badante: $('#badante').value, salvavita: $('#salvavita').value
     };
     if (!nuovo.tipo.includes('visiva')) nuovo.cecita = 'no';
     if (!nuovo.tipo.includes('uditiva')) nuovo.sordo = false;
@@ -195,6 +215,9 @@ $('#indietro').onclick = () => history.length > 1 ? history.back() : (location.h
 $('#versione').textContent = VERSIONE;
 window.addEventListener('hashchange', instrada);
 instrada();
+
+// Chiede a Chrome di non cancellare i dati dell'app (profilo e avviso) se manca spazio.
+try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (e) {}
 
 if ('serviceWorker' in navigator) {
   // Quando arriva una nuova versione, ricarica una volta sola per mostrarla subito.

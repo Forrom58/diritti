@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.0.9 (11/11/2026).
+**Stato:** v1.1.0 (11/11/2026).
 
 ---
 
@@ -169,6 +169,7 @@ L'aggiornamento: le regole cambiano spesso. Ogni scheda ha una fonte ufficiale e
 3. Requisiti grafici: tema scuro e poco luminoso, niente giallo, pulsanti non grandi, numero di versione in alto a destra, icona nello stile comune con fascia DIRITTI e icona maskable nello splash.
 4. Sistema di aggiornamento e verifica periodica delle schede.
 5. Fase 2: estensione alle altre regioni.
+- Fatto in v1.1.0: archiviazione persistente richiesta a Chrome.
 6. **Idea futura – Viaggio in auto (CUDE):** per una città di destinazione, sapere se c'è una ZTL, se serve comunicare la targa prima di entrarci e dove sono gli stalli riservati ai disabili. Spunti da verificare: piattaforma nazionale delle targhe CUDE del Ministero dei Trasporti (comuni aderenti); stalli per disabili presenti su OpenStreetMap.
 
 **Prossima sessione:** prima scrittura del codice della PWA (quando l'utente dice "crea codice").
@@ -260,4 +261,16 @@ SVG del disegno (512×512, prima della fascia):
 - Tasto Indietro solo nella scheda (secondo livello). In home, elenco dell'ambito, profilo e avviso basta Home.
 - Aggiornamenti più rapidi: sw.js chiede i file al server con `cache: 'no-cache'` (niente copie vecchie della cache del browser, es. i 10 minuti di GitHub Pages); app.js controlla subito se c'è un nuovo service worker e, quando arriva, ricarica la pagina una volta. Provato: dopo una sola riapertura compare la versione nuova.
 - Nota: questa correzione vale dalla v1.0.9 in poi; il passaggio dalla v1.0.8 alla v1.0.9 può richiedere ancora di chiudere e riaprire l'app due volte.
+
+### v1.1.0 (11/11/2026)
+- **Profilo, nuovi campi facoltativi**: Comune di residenza (Roma / altro comune del Lazio), Reddito personale annuo, Non autosufficienza certificata, Lavoratore dipendente, Colf o badante con contratto, Apparecchi salvavita in casa (sì / no / non indicato). Lasciati vuoti → la scheda resta "Da valutare".
+- **"Da valutare" con motivo**: la regola può restituire `F('forse', 'motivo')`; nella scheda compare "Perché: …". `valuta(s)` in app.js restituisce {e, perche}.
+- **Soglie in un solo punto** (`SOGLIE` in cima a data.js, anno 2026): pensione ciechi assoluti 20.029,55 € · bonus sociale ISEE 9.796 € · Metrebus ISEE 25.000 € · detrazione badante 40.000 €.
+- **Regole cambiate**: P2 (reddito), E2 (motivo ISEE), E3 (salvavita), F5 (badante + non autosufficienza + reddito), M3 (ciechi assoluti → Cotral; ISEE), M4 STID (residenti a Roma, sempre "Da valutare" con motivo graduatoria 2026–2028 / lista d'attesa fino al 15/01/2027, fonte romamobilita.it, segnata da verificare), P3–P4 (lavoro dipendente), C1 SAISH (Roma), C3 (familiare), C4 (non autosufficienza), T1/T2/T4/T5 (anche sordità e deambulazione), più i motivi fissi di S3, S4, F1–F3, F6, P5, L1, L3, D1, D2, D4.
+- **Archiviazione persistente**: `navigator.storage.persist()` all'avvio (Chrome decide se concederla; di solito sì per le app installate).
+- Provato con il profilo dell'utente + Roma, reddito 15.000, non dipendente: P2 Ti spetta, P4/M4/E2 Da valutare con motivo; nessun errore.
+
+### Aggiornamenti periodici (approvati l'11/11/2026)
+- Attività programmata il 1° di ogni mese + verifica approfondita a metà gennaio (nuovi importi INPS, soglie ISEE, legge di bilancio).
+- L'attività ricontrolla le fonti scheda per scheda e manda un **resoconto delle differenze**; non modifica l'app. Le modifiche si fanno solo dopo il via libera dell'utente.
 

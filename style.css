@@ -58,3 +58,5 @@ legend { padding: 0 6px; }
 .riga-azioni { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 h1:focus { outline: none; }
+.perche { font-size: 16px; color: var(--testo); }
+.perche strong { color: #C3A2EC; font-weight: 600; }
