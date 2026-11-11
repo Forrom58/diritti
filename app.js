@@ -1,5 +1,5 @@
 // Diritti – logica dell'app. Il profilo resta solo sul telefono (localStorage).
-const VERSIONE = 'v1.0.0';
+const VERSIONE = 'v1.0.1';
 const K_PROFILO = 'diritti_profilo';
 const K_AVVISO = 'diritti_avviso_letto';
 
@@ -51,11 +51,11 @@ function home() {
   const righe = AMBITI.map(a => {
     const sch = SCHEDE.filter(s => s.ambito === a.id);
     const n = sch.filter(s => esito(s) === 'si').length;
-    const info = p ? `${n} ti spettano su ${sch.length}` : `${sch.length} schede`;
+    const info = p ? `${n} su ${sch.length}` : `${sch.length} schede`;
     return `<li><button class="voce" data-vai="#/ambito/${a.id}"><span>${esc(a.nome)}</span><span class="conta">${info}</span></button></li>`;
   }).join('');
   mostra(`
-    <h1>Agevolazioni – Roma e Lazio</h1>
+    <h1>Agevolazioni spettanti</h1>
     ${p ? '' : '<div class="riquadro"><p>Compila il profilo per vedere solo quello che ti spetta.</p><button class="btn-piccolo btn-primario" data-vai="#/profilo">Compila il profilo</button></div>'}
     <ul class="lista">${righe}</ul>`, '', false);
 }

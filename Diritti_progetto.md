@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.0.0 scritta l'11/11/2026 (prima versione del codice).
+**Stato:** v1.0.1 (11/11/2026).
 
 ---
 
@@ -201,3 +201,10 @@ L'aggiornamento: le regole cambiano spesso. Ogni scheda ha una fonte ufficiale e
 - **Testi corretti rispetto agli appunti**: Disability Card senza la soglia del 67% (non verificata); bonus disagio fisico "su domanda" senza dettagli non verificati.
 - **Collaudo**: provata in Chromium con schermo da telefono (Pixel 5): avviso, profilo dell'utente, ambiti, Telefonia, scheda T3; nessun errore; service worker registrato. Non ancora provata sul Realme.
 - **Da fare**: pubblicazione su GitHub (repository da creare), prova sul Realme con TalkBack.
+
+### v1.0.1 (11/11/2026) – richieste dell'utente
+- Pagina iniziale: titolo "Agevolazioni spettanti"; su ogni ambito "N su M".
+- Righe che vanno a capo più strette (interlinea 1.25 nei pulsanti-riga).
+- In alto: logo (icona) con la scritta Diritti a sinistra, versione a destra; toccando il logo si torna alla home.
+- Menu in basso: Indietro (spostato qui dall'alto) · Home · Profilo · Avviso.
+

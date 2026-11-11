@@ -14,6 +14,8 @@ html, body { margin: 0; background: var(--sfondo); color: var(--testo);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 18px; line-height: 1.55; }
 .barra { position: sticky; top: 0; display: flex; align-items: center; gap: 10px;
   padding: 10px 14px; background: var(--sfondo); border-bottom: 1px solid var(--bordo); z-index: 2; }
+.logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo img { border-radius: 7px; display: block; }
 .nome-app { font-weight: 600; color: var(--accento); }
 .versione { margin-left: auto; font-size: 12px; color: var(--testo-debole); }
 main { padding: 14px 16px 90px; max-width: 760px; margin: 0 auto; outline: none; }
@@ -25,7 +27,7 @@ a { color: var(--accento); }
 .lista li { margin: 0 0 8px; }
 .voce { display: flex; width: 100%; align-items: center; gap: 10px; text-align: left;
   padding: 12px 14px; background: var(--superficie); color: var(--testo);
-  border: 1px solid var(--bordo); border-radius: 10px; font: inherit; cursor: pointer; }
+  border: 1px solid var(--bordo); border-radius: 10px; font: inherit; line-height: 1.25; cursor: pointer; }
 .voce:focus-visible, .btn-piccolo:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accento); outline-offset: 2px; }
 .voce .conta { margin-left: auto; font-size: 14px; color: var(--testo-debole); white-space: nowrap; }
 .btn-piccolo { padding: 6px 12px; background: var(--superficie); color: var(--testo);
