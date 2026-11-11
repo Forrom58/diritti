@@ -33,6 +33,7 @@ a { color: var(--accento); }
 .btn-piccolo { padding: 6px 12px; background: var(--superficie); color: var(--testo);
   border: 1px solid var(--bordo); border-radius: 8px; font: inherit; font-size: 15px; cursor: pointer; }
 .btn-primario { border-color: var(--accento); color: var(--accento); }
+.btn-piccolo:disabled { opacity: .45; cursor: default; }
 .etichetta { display: inline-block; font-size: 13px; padding: 1px 8px; border-radius: 6px;
   border: 1px solid currentColor; white-space: nowrap; }
 .et-si { color: #7CC48A; background: #1B3320; }

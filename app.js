@@ -1,7 +1,9 @@
 // Diritti – logica dell'app. Il profilo resta solo sul telefono (localStorage).
-const VERSIONE = 'v1.0.3';
+const VERSIONE = 'v1.0.4';
 const K_PROFILO = 'diritti_profilo';
-const K_AVVISO = 'diritti_avviso_letto';
+const K_AVVISO = 'diritti_avviso';   // { data: ISO, ver: n } – registro dell'accettazione
+const AVVISO_VER = 1;                // aumentarlo se cambia il testo dell'avviso: verrà richiesto di nuovo
+function avvisoAccettato() { const a = leggi(K_AVVISO); return a && a.ver === AVVISO_VER ? a : null; }
 
 const PROFILO_VUOTO = { tipo: [], cecita: 'no', sordo: false, deamb: false, inv: 0, l104: 'no', accomp: false, rara: false, isee: '', ruolo: 'disabile' };
 
@@ -33,6 +35,7 @@ function mostra(html, titoloPagina, conIndietro) {
 
 // ---------- Schermate ----------
 function avviso() {
+  const acc = avvisoAccettato();
   mostra(`
     <h1>Avviso importante</h1>
     <div class="riquadro">
@@ -42,8 +45,17 @@ function avviso() {
       <p>L'app non è collegata a nessun ente pubblico. L'autore non risponde di eventuali errori, omissioni o decisioni prese in base ai contenuti.</p>
       <p>I dati del tuo profilo restano solo sul tuo telefono e non vengono inviati a nessuno.</p>
     </div>
-    <div class="riga-azioni"><button class="btn-piccolo btn-primario" id="capito">Ho capito</button></div>`, 'Avviso', false);
-  $('#capito').onclick = () => { scrivi(K_AVVISO, true); location.hash = profilo() ? '#/' : '#/profilo'; };
+    ${acc ? `<p class="nota" id="registro">Avviso letto e accettato il ${new Date(acc.data).toLocaleString('it-IT', { dateStyle: 'long', timeStyle: 'short' })}.</p>` : `
+    <label class="check"><input type="checkbox" id="letto"> Ho letto l'avviso e lo accetto</label>
+    <div class="riga-azioni"><button class="btn-piccolo btn-primario" id="capito" disabled>Accetto</button></div>
+    <p id="avviso-err" class="nota" role="status" aria-live="polite"></p>`}`, 'Avviso', !!acc);
+  if (acc) return;
+  $('#letto').onchange = () => { $('#capito').disabled = !$('#letto').checked; };
+  $('#capito').onclick = () => {
+    if (!$('#letto').checked) { $('#avviso-err').textContent = 'Spunta la casella per confermare la lettura.'; return; }
+    scrivi(K_AVVISO, { data: new Date().toISOString(), ver: AVVISO_VER });
+    location.hash = profilo() ? '#/' : '#/profilo';
+  };
 }
 
 function home() {
@@ -55,7 +67,7 @@ function home() {
     return `<li><button class="voce" data-vai="#/ambito/${a.id}"><span>${esc(a.nome)}</span><span class="conta">${info}</span></button></li>`;
   }).join('');
   mostra(`
-    <h1>Agevolazioni spettanti</h1>
+    <h1>I tuoi diritti</h1>
     <p class="nota regione">Regione: Lazio</p>
     ${p ? '' : '<div class="riquadro"><p>Compila il profilo per vedere solo quello che ti spetta.</p><button class="btn-piccolo btn-primario" data-vai="#/profilo">Compila il profilo</button></div>'}
     <ul class="lista">${righe}</ul>`, '', false);
@@ -167,7 +179,7 @@ function formProfilo() {
 
 // ---------- Navigazione ----------
 function instrada() {
-  if (!leggi(K_AVVISO)) return avviso();
+  if (!avvisoAccettato()) return avviso();
   const h = location.hash.replace(/^#\/?/, '').split('/');
   if (h[0] === 'profilo') return formProfilo();
   if (h[0] === 'avviso') return avviso();

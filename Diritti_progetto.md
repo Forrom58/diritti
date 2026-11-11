@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.0.3 (11/11/2026).
+**Stato:** v1.0.4 (11/11/2026).
 
 ---
 
@@ -222,4 +222,10 @@ L'aggiornamento: le regole cambiano spesso. Ogni scheda ha una fonte ufficiale e
 
 ### Descrizione per GitHub
 PWA accessibile e gratuita per scoprire le agevolazioni per persone con disabilità e le loro famiglie nel Lazio: sanità, fisco, energia, telefonia, mobilità, lavoro, servizi sociali, cultura e tecnologia.
+
+### v1.0.4 (11/11/2026)
+- F6 Casa: tolto il riferimento al bonus 75% del 2025.
+- Titolo della home: "I tuoi diritti".
+- Avviso: per proseguire bisogna spuntare "Ho letto l'avviso e lo accetto" e premere "Accetto". Si salva data e ora dell'accettazione (chiave `diritti_avviso` = {data, ver}); nella pagina Avviso compare "Avviso letto e accettato il …". Se in futuro cambia il testo, aumentare `AVVISO_VER` in app.js: l'accettazione verrà richiesta di nuovo. La vecchia chiave `diritti_avviso_letto` non vale più (chi aveva la v1.0.3 deve accettare di nuovo).
+- Limite: il registro resta solo sul telefono (coerente con "i dati restano sul telefono"); non è una prova verso terzi e si perde cancellando i dati dell'app.
 

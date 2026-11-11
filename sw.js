@@ -1,5 +1,5 @@
 // Diritti – service worker: funziona anche offline. Cambiare CACHE a ogni nuova versione.
-const CACHE = 'diritti-v1.0.3';
+const CACHE = 'diritti-v1.0.4';
 const FILE = ['./', 'index.html', 'style.css', 'app.js', 'data.js', 'manifest.json',
   'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
 
