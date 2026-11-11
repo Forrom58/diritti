@@ -1,5 +1,5 @@
 // Diritti – logica dell'app. Il profilo resta solo sul telefono (localStorage).
-const VERSIONE = 'v1.0.4';
+const VERSIONE = 'v1.0.5';
 const K_PROFILO = 'diritti_profilo';
 const K_AVVISO = 'diritti_avviso';   // { data: ISO, ver: n } – registro dell'accettazione
 const AVVISO_VER = 1;                // aumentarlo se cambia il testo dell'avviso: verrà richiesto di nuovo
@@ -54,7 +54,7 @@ function avviso() {
   $('#capito').onclick = () => {
     if (!$('#letto').checked) { $('#avviso-err').textContent = 'Spunta la casella per confermare la lettura.'; return; }
     scrivi(K_AVVISO, { data: new Date().toISOString(), ver: AVVISO_VER });
-    location.hash = profilo() ? '#/' : '#/profilo';
+    if (location.hash === '#/') instrada(); else location.hash = '#/';
   };
 }
 
@@ -67,7 +67,7 @@ function home() {
     return `<li><button class="voce" data-vai="#/ambito/${a.id}"><span>${esc(a.nome)}</span><span class="conta">${info}</span></button></li>`;
   }).join('');
   mostra(`
-    <h1>I tuoi diritti</h1>
+    <h1>Agevolazioni spettanti</h1>
     <p class="nota regione">Regione: Lazio</p>
     ${p ? '' : '<div class="riquadro"><p>Compila il profilo per vedere solo quello che ti spetta.</p><button class="btn-piccolo btn-primario" data-vai="#/profilo">Compila il profilo</button></div>'}
     <ul class="lista">${righe}</ul>`, '', false);
