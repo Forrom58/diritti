@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.0.2 (11/11/2026).
+**Stato:** v1.0.3 (11/11/2026).
 
 ---
 
@@ -192,7 +192,7 @@ L'aggiornamento: le regole cambiano spesso. Ogni scheda ha una fonte ufficiale e
 **File** (ordine alfabetico): app.js · data.js · icon-192.png · icon-512.png · icon-maskable-512.png · index.html · manifest.json · style.css · sw.js
 
 - **data.js**: ambiti e 43 schede nel formato fisso; ogni scheda ha `spetta(p)` che dà "Ti spetta", "Da valutare" o "Non ti spetta" in base al profilo. Per aggiornare una scheda si modifica solo questo file.
-- **app.js**: schermate con indirizzi `#/` (ambiti), `#/ambito/<id>` (aggiungendo `/tutte` mostra anche le schede che non spettano), `#/scheda/<codice>`, `#/profilo`, `#/avviso`. Profilo e avviso letto in localStorage (`diritti_profilo`, `diritti_avviso_letto`): niente server. Al cambio di schermata il focus va sul titolo (per TalkBack).
+- **app.js**: schermate con indirizzi `#/` (ambiti), `#/ambito/<id>` (mostra sempre tutte le schede), `#/scheda/<codice>`, `#/profilo`, `#/avviso`. Profilo e avviso letto in localStorage (`diritti_profilo`, `diritti_avviso_letto`): niente server. Al cambio di schermata il focus va sul titolo (per TalkBack).
 - **Schermate**: avviso al primo avvio ("Ho capito") → profilo → elenco ambiti con conteggio → schede dell'ambito (mostra solo quelle non escluse) → scheda con piede "Verificato il · Fonte · Controlla sempre con l'ente". Menu in basso: Ambiti, Profilo, Avviso.
 - **Profilo**: chi usa l'app, tipo di disabilità, cecità civile, % invalidità, 104, accompagnamento, malattia rara, ISEE.
 - **Colori interfaccia**: sfondo #17151F, riquadri #211E2E, testo #BEB9CF, accento lilla #9A91C4. Niente giallo, niente superfici chiare.
@@ -213,4 +213,13 @@ L'aggiornamento: le regole cambiano spesso. Ogni scheda ha una fonte ufficiale e
 - Etichette di colore diverso: Ti spetta verde (#8FC29C su #1F3326), Da valutare blu (#93ABD8 su #1E2638), Da verificare terracotta (#D39A7A su #3A2620), Non ti spetta rosa scuro (#B8838F su #33202A). "(da verificare)" negli elenchi in terracotta.
 - Tasto Indietro senza freccia.
 - Sotto il titolo della home: "Regione: Lazio". Idea futura: scelta della regione nel profilo, con l'elenco delle regioni.
+
+### v1.0.3 (11/11/2026)
+- Profilo: i campi specifici compaiono solo se è spuntata la disabilità corrispondente. Visiva → Cecità civile; Uditiva → Sordità civile riconosciuta (`sordo`); Motoria → Deambulazione gravemente ridotta (`deamb`). Se la disabilità viene tolta, il campo si azzera al salvataggio.
+- Ogni ambito mostra sempre tutte le schede, senza pulsante "Mostra anche…".
+- Nuovi colori delle etichette: Ti spetta verde (#7CC48A su #1B3320), Da valutare viola (#C3A2EC su #30244A), Da verificare arancio (#E09A5C su #3D2814), Non ti spetta rosso (#E87C7C su #401C1E).
+- data.js: CUDE (M1) usa `deamb`; disabilità gravissima (C2) usa `sordo`.
+
+### Descrizione per GitHub
+PWA accessibile e gratuita per scoprire le agevolazioni per persone con disabilità e le loro famiglie nel Lazio: sanità, fisco, energia, telefonia, mobilità, lavoro, servizi sociali, cultura e tecnologia.
 

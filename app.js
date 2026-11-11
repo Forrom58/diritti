@@ -1,9 +1,9 @@
 // Diritti – logica dell'app. Il profilo resta solo sul telefono (localStorage).
-const VERSIONE = 'v1.0.2';
+const VERSIONE = 'v1.0.3';
 const K_PROFILO = 'diritti_profilo';
 const K_AVVISO = 'diritti_avviso_letto';
 
-const PROFILO_VUOTO = { tipo: [], cecita: 'no', inv: 0, l104: 'no', accomp: false, rara: false, isee: '', ruolo: 'disabile' };
+const PROFILO_VUOTO = { tipo: [], cecita: 'no', sordo: false, deamb: false, inv: 0, l104: 'no', accomp: false, rara: false, isee: '', ruolo: 'disabile' };
 
 function leggi(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
 function scrivi(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -61,19 +61,17 @@ function home() {
     <ul class="lista">${righe}</ul>`, '', false);
 }
 
-function ambito(id, tutte) {
+function ambito(id) {
   const a = AMBITI.find(x => x.id === id);
   if (!a) return home();
   const sch = SCHEDE.filter(s => s.ambito === id).map(s => ({ s, e: esito(s) }));
-  const visibili = tutte ? sch : sch.filter(x => x.e !== 'no');
-  const nascoste = sch.length - visibili.length;
+  const visibili = sch;
   const righe = visibili.map(({ s, e }) =>
     `<li><button class="voce" data-vai="#/scheda/${s.codice}"><span>${esc(s.titolo)}${s.verifica === 'dubbio' ? ' <span class="testo-verif">(da verificare)</span>' : ''}</span><span class="conta">${etichetta(e)}</span></button></li>`).join('');
   mostra(`
     <h1>${esc(a.nome)}</h1>
     <ul class="lista">${righe || '<li class="nota">Nessuna scheda per il tuo profilo.</li>'}</ul>
-    ${nascoste ? `<div class="riga-azioni"><button class="btn-piccolo" data-vai="#/ambito/${id}/tutte">Mostra anche le ${nascoste} che non ti spettano</button></div>` : ''}
-    ${tutte ? `<div class="riga-azioni"><button class="btn-piccolo" data-vai="#/ambito/${id}">Mostra solo le mie</button></div>` : ''}`, a.nome, true);
+`, a.nome, true);
 }
 
 function scheda(cod) {
@@ -104,6 +102,7 @@ function formProfilo() {
       <fieldset><legend>Tipo di disabilità</legend>
         ${tipi.map(([v, t]) => `<label class="check"><input type="checkbox" name="tipo" value="${v}" ${chk(p.tipo.includes(v))}> ${t}</label>`).join('')}
       </fieldset>
+      <div id="campo-visiva" data-tipo="visiva">
       <label for="cecita">Cecità civile</label>
       <select id="cecita">
         <option value="no" ${sel(p.cecita, 'no')}>Nessuna</option>
@@ -111,6 +110,13 @@ function formProfilo() {
         <option value="parziale" ${sel(p.cecita, 'parziale')}>Cieco parziale (fino a 1/20)</option>
         <option value="ipograve" ${sel(p.cecita, 'ipograve')}>Ipovedente grave (fino a 1/10)</option>
       </select>
+      </div>
+      <div id="campo-uditiva" data-tipo="uditiva">
+        <label class="check"><input type="checkbox" id="sordo" ${chk(p.sordo)}> Sordità civile riconosciuta</label>
+      </div>
+      <div id="campo-motoria" data-tipo="motoria">
+        <label class="check"><input type="checkbox" id="deamb" ${chk(p.deamb)}> Capacità di deambulazione gravemente ridotta</label>
+      </div>
       <label for="inv">Invalidità civile (percentuale, 0 se nessuna)</label>
       <input id="inv" type="number" min="0" max="100" inputmode="numeric" value="${p.inv}">
       <label for="l104">Legge 104</label>
@@ -127,6 +133,12 @@ function formProfilo() {
       </div>
       <p id="esito-salva" class="nota" role="status" aria-live="polite"></p>
     </form>`, 'Profilo', true);
+  const aggiornaCampi = () => {
+    const scelti = [...document.querySelectorAll('input[name=tipo]:checked')].map(c => c.value);
+    document.querySelectorAll('[data-tipo]').forEach(d => { d.hidden = !scelti.includes(d.dataset.tipo); });
+  };
+  document.querySelectorAll('input[name=tipo]').forEach(c => c.addEventListener('change', aggiornaCampi));
+  aggiornaCampi();
   $('#fprof').onsubmit = ev => {
     ev.preventDefault();
     const inv = Math.max(0, Math.min(100, parseInt($('#inv').value, 10) || 0));
@@ -134,11 +146,14 @@ function formProfilo() {
     const nuovo = {
       ruolo: $('#ruolo').value,
       tipo: [...document.querySelectorAll('input[name=tipo]:checked')].map(c => c.value),
-      cecita: $('#cecita').value, inv, l104: $('#l104').value,
+      cecita: $('#cecita').value, sordo: $('#sordo').checked, deamb: $('#deamb').checked,
+      inv, l104: $('#l104').value,
       accomp: $('#accomp').checked, rara: $('#rara').checked,
       isee: iseeV === '' ? '' : Number(iseeV)
     };
-    if (nuovo.cecita !== 'no' && !nuovo.tipo.includes('visiva')) nuovo.tipo.push('visiva');
+    if (!nuovo.tipo.includes('visiva')) nuovo.cecita = 'no';
+    if (!nuovo.tipo.includes('uditiva')) nuovo.sordo = false;
+    if (!nuovo.tipo.includes('motoria')) nuovo.deamb = false;
     scrivi(K_PROFILO, nuovo);
     $('#esito-salva').textContent = 'Profilo salvato.';
     setTimeout(() => { location.hash = '#/'; }, 700);
@@ -156,7 +171,7 @@ function instrada() {
   const h = location.hash.replace(/^#\/?/, '').split('/');
   if (h[0] === 'profilo') return formProfilo();
   if (h[0] === 'avviso') return avviso();
-  if (h[0] === 'ambito') return ambito(h[1], h[2] === 'tutte');
+  if (h[0] === 'ambito') return ambito(h[1]);
   if (h[0] === 'scheda') return scheda(h[1]);
   return home();
 }
