@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.0.4 (11/11/2026).
+**Stato:** v1.0.6 (11/11/2026).
 
 ---
 
@@ -60,7 +60,7 @@ Vincoli che ne derivano:
 - il profilo va salvato solo sul telefono, senza server (altrimenti l'ultima frase non è vera);
 - prima di pubblicare l'app per altri, far rileggere il testo da un legale o da un'associazione (es. UICI).
 
-### Icona (scelta provvisoria del 10/11/2026: variante A2)
+### Icona precedente (A2, sostituita l'11/11/2026 – vedi v1.0.6)
 Standard comune: C:\Appoggio-Claude\ICONE\ICONE-DELLE-MIE-APP.md (fascia da y=369, Barlow Black 132 px, base y=491).
 - Disegno: persona stilizzata con braccia aperte dentro un cerchio, i piedi toccano il cerchio (tipo Uomo vitruviano). Simbolo di accessibilità, **senza** sedia a rotelle.
 - Colori: sfondo #2E2A4F · fascia #B9B3D9 · scritta #221E3D · disegno #DCD8F0
@@ -228,4 +228,25 @@ PWA accessibile e gratuita per scoprire le agevolazioni per persone con disabili
 - Titolo della home: "I tuoi diritti".
 - Avviso: per proseguire bisogna spuntare "Ho letto l'avviso e lo accetto" e premere "Accetto". Si salva data e ora dell'accettazione (chiave `diritti_avviso` = {data, ver}); nella pagina Avviso compare "Avviso letto e accettato il …". Se in futuro cambia il testo, aumentare `AVVISO_VER` in app.js: l'accettazione verrà richiesta di nuovo. La vecchia chiave `diritti_avviso_letto` non vale più (chi aveva la v1.0.3 deve accettare di nuovo).
 - Limite: il registro resta solo sul telefono (coerente con "i dati restano sul telefono"); non è una prova verso terzi e si perde cancellando i dati dell'app.
+
+### v1.0.5 (11/11/2026)
+- Titolo della home di nuovo "Agevolazioni spettanti".
+- Corretto errore: dopo "Accetto" l'app restava sull'avviso se l'indirizzo era già `#/` (nessun cambio di indirizzo, quindi nessun aggiornamento). Ora dopo "Accetto" si va sempre alla home; se il profilo manca, la home invita a compilarlo. Provati 5 casi di avvio diversi.
+
+### v1.0.6 (11/11/2026) – nuova icona "E1 diritta"
+- Disegno: D grande e diritta (per Diritti e Disabilità), occhiello aperto, con una riga sottile scura a metà spessore che forma una seconda D interna (ispirazione: stile moderno tipo logo Formula 1, ma disegno originale). La D poggia sulla fascia con 2 px di stacco.
+- **Due soli colori**: scuro #2E2A4F (sfondo, scritta, riga interna) · chiaro #CFC9EA (fascia, D).
+- Scritta DIRITTI a **124 px** (eccezione allo standard di 132 px: a 132 tocca gli angoli; a 124 è larga 399 px, come PASTA). Base y=491, fascia da y=369.
+- Maskable al 90% con margini: sopra scuro, sotto chiaro.
+- Scartate: D1 (D tagliata), D3 (sembra la lettera "Đ"), D4, E1 obliqua, E2, E3, E4.
+- Icone con `?v=1.0.6` in manifest.json e index.html per forzare l'aggiornamento. Su Android l'icona dell'app installata può metterci qualche giorno ad aggiornarsi (lo decide Chrome); per averla subito: disinstallare e reinstallare la PWA.
+
+SVG del disegno (512×512, prima della fascia):
+```svg
+<rect width="512" height="512" fill="#2E2A4F"/>
+<g transform="translate(-11 0)">
+<path d="M130 60 H250 A153.5 153.5 0 0 1 250 367 H130 Z M194 124 H250 A89.5 89.5 0 0 1 250 303 H194 Z" fill="#CFC9EA" fill-rule="evenodd"/>
+<path d="M162 92 H250 A121.5 121.5 0 0 1 250 335 H162 Z" fill="none" stroke="#2E2A4F" stroke-width="11" stroke-linejoin="round"/>
+</g>
+```
 
