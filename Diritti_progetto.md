@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.1.0 (11/11/2026).
+**Stato:** v1.1.1 (11/11/2026).
 
 ---
 
@@ -274,3 +274,5 @@ SVG del disegno (512×512, prima della fascia):
 - Attività programmata il 1° di ogni mese + verifica approfondita a metà gennaio (nuovi importi INPS, soglie ISEE, legge di bilancio).
 - L'attività ricontrolla le fonti scheda per scheda e manda un **resoconto delle differenze**; non modifica l'app. Le modifiche si fanno solo dopo il via libera dell'utente.
 
+### v1.1.1 (11/11/2026)
+- P2 Pensione ciechi assoluti: nota "Importi 2026." → "Importi validi per il 2026."

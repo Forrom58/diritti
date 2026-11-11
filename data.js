@@ -242,7 +242,7 @@ const SCHEDE = [
     aChi: 'Ciechi assoluti con reddito personale annuo fino a 20.029,55 euro.',
     cosa: '368,46 euro al mese per 13 mensilità (340,71 se ricoverati).',
     come: 'Con il riconoscimento INPS; controllare di riceverla se si rientra nel limite.',
-    fonte: 'https://www.inps.it', verifica: 'ok', note: 'Importi 2026.',
+    fonte: 'https://www.inps.it', verifica: 'ok', note: 'Importi validi per il 2026.',
     spetta: p => {
       if (p.cecita !== 'assoluta') return 'no';
       const r = num(p.reddito);
