@@ -35,7 +35,12 @@ a { color: var(--accento); }
 .btn-primario { border-color: var(--accento); color: var(--accento); }
 .etichetta { display: inline-block; font-size: 13px; padding: 1px 8px; border-radius: 6px;
   border: 1px solid currentColor; white-space: nowrap; }
-.et-si { color: var(--si); } .et-forse { color: var(--forse); } .et-no { color: var(--no); }
+.et-si { color: #8FC29C; background: #1F3326; }
+.et-forse { color: #93ABD8; background: #1E2638; }
+.et-verif { color: #D39A7A; background: #3A2620; }
+.et-no { color: #B8838F; background: #33202A; }
+.testo-verif { color: #D39A7A; font-size: 15px; }
+.regione { margin: -8px 0 12px; }
 .riquadro { background: var(--superficie); border: 1px solid var(--bordo); border-radius: 10px; padding: 12px 14px; margin: 10px 0; }
 .nota { font-size: 15px; color: var(--testo-debole); }
 .piede-scheda { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--bordo); font-size: 14px; color: var(--testo-debole); }

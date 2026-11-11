@@ -1,5 +1,5 @@
 // Diritti – logica dell'app. Il profilo resta solo sul telefono (localStorage).
-const VERSIONE = 'v1.0.1';
+const VERSIONE = 'v1.0.2';
 const K_PROFILO = 'diritti_profilo';
 const K_AVVISO = 'diritti_avviso_letto';
 
@@ -56,6 +56,7 @@ function home() {
   }).join('');
   mostra(`
     <h1>Agevolazioni spettanti</h1>
+    <p class="nota regione">Regione: Lazio</p>
     ${p ? '' : '<div class="riquadro"><p>Compila il profilo per vedere solo quello che ti spetta.</p><button class="btn-piccolo btn-primario" data-vai="#/profilo">Compila il profilo</button></div>'}
     <ul class="lista">${righe}</ul>`, '', false);
 }
@@ -67,7 +68,7 @@ function ambito(id, tutte) {
   const visibili = tutte ? sch : sch.filter(x => x.e !== 'no');
   const nascoste = sch.length - visibili.length;
   const righe = visibili.map(({ s, e }) =>
-    `<li><button class="voce" data-vai="#/scheda/${s.codice}"><span>${esc(s.titolo)}${s.verifica === 'dubbio' ? ' <span class="nota">(da verificare)</span>' : ''}</span><span class="conta">${etichetta(e)}</span></button></li>`).join('');
+    `<li><button class="voce" data-vai="#/scheda/${s.codice}"><span>${esc(s.titolo)}${s.verifica === 'dubbio' ? ' <span class="testo-verif">(da verificare)</span>' : ''}</span><span class="conta">${etichetta(e)}</span></button></li>`).join('');
   mostra(`
     <h1>${esc(a.nome)}</h1>
     <ul class="lista">${righe || '<li class="nota">Nessuna scheda per il tuo profilo.</li>'}</ul>
@@ -81,7 +82,7 @@ function scheda(cod) {
   const e = esito(s);
   mostra(`
     <h1>${esc(s.titolo)}</h1>
-    <p>${etichetta(e)} ${s.verifica === 'dubbio' ? '<span class="etichetta et-forse">Da verificare</span>' : ''}</p>
+    <p>${etichetta(e)} ${s.verifica === 'dubbio' ? '<span class="etichetta et-verif">Da verificare</span>' : ''}</p>
     <h2>A chi spetta</h2><p>${esc(s.aChi)}</p>
     <h2>Cosa dà</h2><p>${esc(s.cosa)}</p>
     <h2>Come si chiede</h2><p>${esc(s.come)}</p>

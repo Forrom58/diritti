@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.0.1 (11/11/2026).
+**Stato:** v1.0.2 (11/11/2026).
 
 ---
 
@@ -207,4 +207,10 @@ L'aggiornamento: le regole cambiano spesso. Ogni scheda ha una fonte ufficiale e
 - Righe che vanno a capo più strette (interlinea 1.25 nei pulsanti-riga).
 - In alto: logo (icona) con la scritta Diritti a sinistra, versione a destra; toccando il logo si torna alla home.
 - Menu in basso: Indietro (spostato qui dall'alto) · Home · Profilo · Avviso.
+- I collegamenti a style.css, data.js e app.js in index.html hanno `?v=<versione>` per evitare che il browser usi file vecchi: aggiornarli a ogni versione.
+
+### v1.0.2 (11/11/2026)
+- Etichette di colore diverso: Ti spetta verde (#8FC29C su #1F3326), Da valutare blu (#93ABD8 su #1E2638), Da verificare terracotta (#D39A7A su #3A2620), Non ti spetta rosa scuro (#B8838F su #33202A). "(da verificare)" negli elenchi in terracotta.
+- Tasto Indietro senza freccia.
+- Sotto il titolo della home: "Regione: Lazio". Idea futura: scelta della regione nel profilo, con l'elenco delle regioni.
 
