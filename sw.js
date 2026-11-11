@@ -1,5 +1,5 @@
 // Diritti – service worker: funziona anche offline. Cambiare CACHE a ogni nuova versione.
-const CACHE = 'diritti-v1.0.8';
+const CACHE = 'diritti-v1.0.9';
 const FILE = ['./', 'index.html', 'style.css', 'app.js', 'data.js', 'manifest.json',
   'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
 
@@ -14,7 +14,8 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    fetch(e.request).then(r => {
+    // no-cache: chiede sempre al server se il file è cambiato (niente copie vecchie della cache del browser)
+    fetch(new URL(e.request.url).origin === self.location.origin ? new Request(e.request.url, { cache: 'no-cache' }) : e.request).then(r => {
       const copia = r.clone();
       caches.open(CACHE).then(c => c.put(e.request, copia));
       return r;

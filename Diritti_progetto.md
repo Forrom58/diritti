@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.0.8 (11/11/2026).
+**Stato:** v1.0.9 (11/11/2026).
 
 ---
 
@@ -255,3 +255,9 @@ SVG del disegno (512×512, prima della fascia):
 
 ### v1.0.8 (11/11/2026)
 - Scheda: se l'esito è "Ti spetta", la sezione "A chi spetta" non viene mostrata (resta per "Da valutare" e "Non ti spetta").
+
+### v1.0.9 (11/11/2026)
+- Tasto Indietro solo nella scheda (secondo livello). In home, elenco dell'ambito, profilo e avviso basta Home.
+- Aggiornamenti più rapidi: sw.js chiede i file al server con `cache: 'no-cache'` (niente copie vecchie della cache del browser, es. i 10 minuti di GitHub Pages); app.js controlla subito se c'è un nuovo service worker e, quando arriva, ricarica la pagina una volta. Provato: dopo una sola riapertura compare la versione nuova.
+- Nota: questa correzione vale dalla v1.0.9 in poi; il passaggio dalla v1.0.8 alla v1.0.9 può richiedere ancora di chiudere e riaprire l'app due volte.
+

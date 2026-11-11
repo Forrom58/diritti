@@ -1,5 +1,5 @@
 // Diritti – logica dell'app. Il profilo resta solo sul telefono (localStorage).
-const VERSIONE = 'v1.0.7';
+const VERSIONE = 'v1.0.9';
 const K_PROFILO = 'diritti_profilo';
 const K_AVVISO = 'diritti_avviso';   // { data: ISO, ver: n } – registro dell'accettazione
 const AVVISO_VER = 1;                // aumentarlo se cambia il testo dell'avviso: verrà richiesto di nuovo
@@ -48,7 +48,7 @@ function avviso() {
     ${acc ? `<p class="nota" id="registro">Avviso letto e accettato il ${new Date(acc.data).toLocaleString('it-IT', { dateStyle: 'long', timeStyle: 'short' })}.</p>` : `
     <label class="check"><input type="checkbox" id="letto"> Ho letto l'avviso e lo accetto</label>
     <div class="riga-azioni"><button class="btn-piccolo btn-primario" id="capito" disabled>Accetto</button></div>
-    <p id="avviso-err" class="nota" role="status" aria-live="polite"></p>`}`, 'Avviso', !!acc);
+    <p id="avviso-err" class="nota" role="status" aria-live="polite"></p>`}`, 'Avviso', false);
   if (acc) return;
   $('#letto').onchange = () => { $('#capito').disabled = !$('#letto').checked; };
   $('#capito').onclick = () => {
@@ -83,7 +83,7 @@ function ambito(id) {
   mostra(`
     <h1>${esc(a.nome)}</h1>
     <ul class="lista">${righe || '<li class="nota">Nessuna scheda per il tuo profilo.</li>'}</ul>
-`, a.nome, true);
+`, a.nome, false);
 }
 
 function scheda(cod) {
@@ -93,7 +93,7 @@ function scheda(cod) {
   mostra(`
     <h1>${esc(s.titolo)}</h1>
     <p>${etichetta(e)} ${s.verifica === 'dubbio' ? '<span class="etichetta et-verif">Da verificare</span>' : ''}</p>
-    <h2>A chi spetta</h2><p>${esc(s.aChi)}</p>
+    ${e === 'si' ? '' : `<h2>A chi spetta</h2><p>${esc(s.aChi)}</p>`}
     <h2>Cosa dà</h2><p>${esc(s.cosa)}</p>
     <h2>Come si chiede</h2><p>${esc(s.come)}</p>
     ${s.note ? `<h2>Note</h2><p>${esc(s.note)}</p>` : ''}
@@ -144,7 +144,7 @@ function formProfilo() {
         <button type="button" class="btn-piccolo" id="cancella">Cancella profilo</button>
       </div>
       <p id="esito-salva" class="nota" role="status" aria-live="polite"></p>
-    </form>`, 'Profilo', true);
+    </form>`, 'Profilo', false);
   const aggiornaCampi = () => {
     const scelti = [...document.querySelectorAll('input[name=tipo]:checked')].map(c => c.value);
     document.querySelectorAll('[data-tipo]').forEach(d => { d.hidden = !scelti.includes(d.dataset.tipo); });
@@ -197,5 +197,12 @@ window.addEventListener('hashchange', instrada);
 instrada();
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  // Quando arriva una nuova versione, ricarica una volta sola per mostrarla subito.
+  const giaControllata = !!navigator.serviceWorker.controller;
+  let ricaricato = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (giaControllata && !ricaricato) { ricaricato = true; location.reload(); }
+  });
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js')
+    .then(r => r.update()).catch(() => {}));
 }
