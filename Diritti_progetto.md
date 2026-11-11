@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.0.7 (11/11/2026).
+**Stato:** v1.0.8 (11/11/2026).
 
 ---
 
@@ -252,3 +252,6 @@ SVG del disegno (512×512, prima della fascia):
 
 ### v1.0.7 (11/11/2026)
 - Scritta DIRITTI nell'icona alzata di 2 px (base y=489).
+
+### v1.0.8 (11/11/2026)
+- Scheda: se l'esito è "Ti spetta", la sezione "A chi spetta" non viene mostrata (resta per "Da valutare" e "Non ti spetta").
