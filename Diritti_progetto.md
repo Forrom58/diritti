@@ -3,7 +3,7 @@
 **Nome app:** Diritti (nome breve sotto l'icona) · **Scritta nella fascia dell'icona:** DIRITTI · **Cartella:** C:\Appoggio-Claude\DIRITTI
 
 **Ultimo aggiornamento:** 10 novembre 2026
-**Stato:** v1.1.1 (11/11/2026).
+**Stato:** v1.1.2 (12/11/2026).
 
 ---
 
@@ -276,3 +276,8 @@ SVG del disegno (512×512, prima della fascia):
 
 ### v1.1.1 (11/11/2026)
 - P2 Pensione ciechi assoluti: nota "Importi 2026." → "Importi validi per il 2026."
+
+### v1.1.2 (12/11/2026) – icona disegnata dall'utente
+- L'utente ha modificato `diritti_icona_512.svg` (nella cartella DIRITTI): nuova D a linee, aperta in basso a sinistra, con contorno chiaro #CFC9EA spesso 55 e riga scura interna #2E2A4F spessa 18 (gruppo `g3`). Sfondo, fascia e scritta invariati (due colori, DIRITTI 124 px, base y=489).
+- Le icone PNG (192, 512, maskable al 90%) sono generate direttamente da questo SVG: per cambiare l'icona basta modificare l'SVG e rigenerarle.
+

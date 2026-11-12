@@ -1,5 +1,5 @@
 // Diritti – logica dell'app. Il profilo resta solo sul telefono (localStorage).
-const VERSIONE = 'v1.1.0';
+const VERSIONE = 'v1.1.2';
 const K_PROFILO = 'diritti_profilo';
 const K_AVVISO = 'diritti_avviso';   // { data: ISO, ver: n } – registro dell'accettazione
 const AVVISO_VER = 1;                // aumentarlo se cambia il testo dell'avviso: verrà richiesto di nuovo
