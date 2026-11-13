@@ -5,18 +5,43 @@
    viewBox="0 0 512 512"
    version="1.1"
    id="svg1"
+   sodipodi:docname="diritti_icona_512.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:c2pa="http://c2pa.org/manifest">
   <defs
      id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#6a6a6a"
+     showgrid="false"
+     inkscape:zoom="0.75488281"
+     inkscape:cx="477.55757"
+     inkscape:cy="466.9599"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
   <!-- Icona Diritti v1.1.1 – due colori: scuro #2E2A4F, chiaro #CFC9EA -->
   <!-- Sfondo -->
   <rect
      id="sfondo"
      width="512"
      height="512"
-     fill="#2E2A4F" />
+     fill="#2e2a4f"
+     x="0"
+     y="0" />
   <!-- Disegno: D con occhiello e riga interna (D dentro la D) -->
   <!-- Fascia: da y=369 fino in fondo -->
   <rect
@@ -37,14 +62,24 @@
   </metadata>
   <g
      id="g3"
-     transform="translate(-712.08175,-7.0056728)">
-    <path
+     transform="matrix(0.89234792,0,0,0.87719777,-607.86573,38.192862)">
+    <g
        id="path3"
-       style="fill:#000000;fill-opacity:0;stroke:#cfc9ea;stroke-width:55;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       d="M 897.34633,302.50947 V 92.183052 h 136.74927 c 75.347,72.288028 97.1255,152.359508 0,249.707628 -45.58306,0 -168.36347,0 -216.62102,0" />
+       style="opacity:1">
+      <path
+         style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill-opacity:0;stroke-linejoin:round;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         d="M 897.34633,288.09357 V 92.183052 h 136.74927 c 75.347,72.288028 97.1255,152.359508 0,249.707628 H 762.88942"
+         id="path7" />
+      <path
+         style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#cfc9ea;stroke-linejoin:round;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         d="m 897.3457,64.683594 c -15.1872,0.0015 -27.49848,12.312798 -27.5,27.5 V 316.12467 l 55,-60.4064 V 119.68359 h 97.7773 c 30.0646,30.80721 46.7814,60.5782 48.709,89.76758 1.96,29.67822 -10.2864,63.45321 -49.1484,104.93945 l -151.08918,0 -51.95822,55 214.9595,0 c 7.3039,-3.6e-4 14.3077,-2.90601 19.4668,-8.07617 51.9513,-52.07037 76.0078,-104.64669 72.6504,-155.48633 -3.3574,-50.83963 -32.6995,-94.74892 -73.0781,-133.488276 -5.1209,-4.912809 -11.9426,-7.656044 -19.0391,-7.65625 z"
+         id="path8"
+         sodipodi:nodetypes="ccccccccccccsccc" />
+    </g>
     <path
        id="rect1"
        style="fill:none;stroke:#2e2a4f;stroke-width:18;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       d="M 898.51394,302.50947 V 92.183052 h 136.74926 c 75.347,72.288028 97.1255,152.359508 0,249.707628 -45.58305,0 -168.36346,0 -216.62101,0" />
+       d="M 898.51394,302.50947 V 92.183052 h 136.74926 c 75.347,72.288028 97.1255,152.359508 0,249.707628 l -265.9576,0"
+       sodipodi:nodetypes="ccccc" />
   </g>
 </svg>
